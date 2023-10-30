@@ -5,4 +5,13 @@ public class Kunde extends Person {
     //private String adresse;
 
     //private String
+
+    public String getIdKunde() {
+        return idKunde;
+    }
+
+    public void setIdKunde(String idKunde) {
+        this.idKunde = idKunde;
+    }
+
 }

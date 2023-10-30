@@ -14,6 +14,16 @@ public class Buch {
     private int erstellungsjahr;
     private float preis;
 
+    public Buch(String idBuch, String title, String autor, String genre, int anzahlSeiten, int erstellungsjahr, float preis) {
+        this.idBuch = idBuch;
+        this.title = title;
+        this.autor = autor;
+        this.genre = genre;
+        this.anzahlSeiten = anzahlSeiten;
+        this.erstellungsjahr = erstellungsjahr;
+        this.preis = preis;
+    }
+
     @Override
     public String toString() {
         return "Buch{" +

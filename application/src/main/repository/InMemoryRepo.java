@@ -7,7 +7,7 @@ public interface InMemoryRepo<E> {
 
     void add(E entity);
     void delete(String id);
-    E update();
+    E update(String id, E new_entity);
     public List<E> getAll();
     public E getById(int index) ;
 }
