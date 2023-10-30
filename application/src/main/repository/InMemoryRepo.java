@@ -9,5 +9,5 @@ public interface InMemoryRepo<E> {
     void delete(String id);
     E update(String id, E new_entity);
     public List<E> getAll();
-    public E getById(int index) ;
+    public E getById(String index) ;
 }

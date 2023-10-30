@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 
 public class Bestellung extends Wishlist{
 
+    private LocalDateTime datum;
+    private String idBestellung;
+    private float gesamtpreis;
+    private String adresse;
+
     public String getAdresse() {
         return adresse;
     }

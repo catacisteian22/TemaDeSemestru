@@ -5,12 +5,10 @@ package main.model;
 public class Buch {
 
     private String idBuch;
-    private String typ;
     private String title;
     private String autor;
     private String genre;
     private int anzahlSeiten;
-    private String coverTyp;
     private int erstellungsjahr;
     private float preis;
 
@@ -28,12 +26,10 @@ public class Buch {
     public String toString() {
         return "Buch{" +
                 "idProdukt=" + idBuch +
-                ", typ='" + typ + '\'' +
                 ", title='" + title + '\'' +
                 ", autor='" + autor + '\'' +
                 ", genre='" + genre + '\'' +
                 ", anzahlSeiten=" + anzahlSeiten +
-                ", coverTyp='" + coverTyp + '\'' +
                 ", erstellungsjahr=" + erstellungsjahr +
                 ", preis=" + preis +
                 '}';
@@ -63,28 +59,12 @@ public class Buch {
         this.anzahlSeiten = anzahlSeiten;
     }
 
-    public String getCoverTyp() {
-        return coverTyp;
-    }
-
-    public void setCoverTyp(String coverTyp) {
-        this.coverTyp = coverTyp;
-    }
-
     public int getErstellungsjahr() {
         return erstellungsjahr;
     }
 
     public void setErstellungsjahr(int erstellungsjahr) {
         this.erstellungsjahr = erstellungsjahr;
-    }
-
-    public String getTyp() {
-        return typ;
-    }
-
-    public void setTyp(String typ) {
-        this.typ = typ;
     }
 
     public String getTitle() {
