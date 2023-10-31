@@ -8,6 +8,9 @@ import main.repository.BestellungRepo;
 import main.repository.BuchRepo;
 import main.repository.KontoRepo;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +61,7 @@ public class BuchhandlungApp {
             System.out.println("1. Buch anzeigen");
             System.out.println("2. Wollen einzuloggen?");
             System.out.println("3. Alle Kontos anschauen:");
-            System.out.println("4. Something:");
+            System.out.println("4. Eine Bestellung aufgeben:");
             System.out.println("0. Beenden");
             System.out.print("Wähle eine Option: ");
 
@@ -148,9 +151,16 @@ public class BuchhandlungApp {
                     if (loggedInBestellung != null) {
                         String orderId = generateRandomString(4);
 
-                        System.out.println("Enter delivery address:");
-                        String deliveryAddress = scanner.next();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+                        System.out.println("Enter delivery address:");
+                        String deliveryAddress = "";
+
+                        try {
+                            deliveryAddress = reader.readLine();
+                        } catch (IOException e) {
+                            System.out.println("Error reading input: " + e.getMessage());
+                        }
 //                        List<Buch> booksChosen = new ArrayList<>();
 //                        for (Buch book : buchController.getAll()) {
 //                            System.out.println("Do you want to order " + buchController.getAll(). + "? (yes/no)");
@@ -161,6 +171,7 @@ public class BuchhandlungApp {
 //                        }
 
                         float totalPrice = bestellungController.calculateTotalPrice(chosenBooks);
+                        System.out.println("Total price:"+ totalPrice);
                         try {
                             bestellungController.addBestellung(loggedInBestellung, LocalDateTime.now(), orderId, totalPrice, deliveryAddress, chosenBooks);
                             System.out.println("Order placed successfully.");
