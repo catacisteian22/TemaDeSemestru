@@ -2,7 +2,6 @@ package main.repository;
 
 import main.model.Kunde;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class KundeRepo implements InMemoryRepo<Kunde>{
@@ -19,13 +18,13 @@ public class KundeRepo implements InMemoryRepo<Kunde>{
     }
 
     //    @Override
-    public Kunde getById(String id) {
+    public boolean getById(String id) {
         for (Kunde Kunde : kundeList) {
             if (Kunde.getIdKunde() == id) {
-                return Kunde;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public void delete(String id) {

@@ -17,18 +17,17 @@ public class BuchRepo implements InMemoryRepo<Buch> {
      * @param b
      */
 //    @Override
-    public void add(Buch b){
+    public void add(Buch b) {
         buchList.add(b);
     }
 
-//    @Override
-    public Buch getById(String id) {
+    public boolean getById(String id) {
         for (Buch buch : buchList) {
             if (buch.getIdBuch() == id) {
-                return buch;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public void delete(String id) {
@@ -51,7 +50,7 @@ public class BuchRepo implements InMemoryRepo<Buch> {
         return null;
     }
 
-   public List<Buch> getAll() {
+    public List<Buch> getAll() {
         return buchList;
     }
 }

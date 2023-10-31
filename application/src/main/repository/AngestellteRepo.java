@@ -18,13 +18,13 @@ public class AngestellteRepo implements InMemoryRepo<Angestellte> {
     }
 
     //    @Override
-    public Angestellte getById(String id) {
+    public boolean getById(String id) {
         for (Angestellte Angestellte : angestellteList) {
             if (Angestellte.getIdAngestellte() == id) {
-                return Angestellte;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public void delete(String id) {

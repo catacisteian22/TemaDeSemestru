@@ -16,13 +16,13 @@ public class KontoRepo implements InMemoryRepo<Konto> {
         kontoList.add(k);
     }
 
-    public Konto getById(String username) {
+    public boolean getById(String username) {
         for (Konto Konto : kontoList) {
             if (Konto.getUsername() == username) {
-                return Konto;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public void delete(String username) {

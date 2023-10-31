@@ -1,7 +1,6 @@
 package main.repository;
 
 import main.model.Bestellung;
-import main.model.Buch;
 
 import java.util.List;
 
@@ -23,13 +22,13 @@ public class BestellungRepo implements InMemoryRepo<Bestellung> {
     }
 
     //    @Override
-    public Bestellung getById(String id) {
+    public boolean getById(String id) {
         for (Bestellung bestellung : bestellungList) {
             if (bestellung.getIdBestellung() == id) {
-                return bestellung;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public void delete(String id) {

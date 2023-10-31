@@ -3,8 +3,6 @@ package main.controller;
 import main.model.Buch;
 import main.repository.BuchRepo;
 
-import java.util.List;
-
 public class BuchController {
 
     private final BuchRepo buchRepo;

@@ -10,7 +10,11 @@ public class Angestellte extends Person{
     @Override
     public String toString() {
         return "Angestellte{" +
-                "idAngestellte=" + idAngestellte +
+                "name='" + name + '\'' +
+                ", vorname='" + vorname + '\'' +
+                ", email='" + email + '\'' +
+                ", geburtsDatum=" + geburtsDatum +
+                ", idAngestellte='" + idAngestellte + '\'' +
                 ", rolle='" + rolle + '\'' +
                 ", gehalt=" + gehalt +
                 '}';
@@ -38,5 +42,37 @@ public class Angestellte extends Person{
 
     public void setGehalt(int gehalt) {
         this.gehalt = gehalt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getVorname() {
+        return vorname;
+    }
+
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getGeburtsDatum() {
+        return geburtsDatum;
+    }
+
+    public void setGeburtsDatum(Date geburtsDatum) {
+        this.geburtsDatum = geburtsDatum;
     }
 }

@@ -1,13 +1,21 @@
 package main.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Konto {
 
     private String username;
     private String password;
-    private LocalDate joinDatum;
+    private LocalDateTime joinDatum;
     private String typ;// kunde oder Angestellte
+
+    public Konto(String username, String password, LocalDateTime joinDatum, String typ) {
+        this.username = username;
+        this.password = password;
+        this.joinDatum = joinDatum;
+        this.typ = typ;
+    }
 
     public String getTyp() {
         return typ;
@@ -17,11 +25,11 @@ public class Konto {
         this.typ = typ;
     }
 
-    public LocalDate getJoinDatum() {
+    public LocalDateTime getJoinDatum() {
         return joinDatum;
     }
 
-    public void setJoinDatum(LocalDate joinDatum) {
+    public void setJoinDatum(LocalDateTime joinDatum) {
         this.joinDatum = joinDatum;
     }
 
