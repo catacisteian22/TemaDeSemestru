@@ -1,3 +1,19 @@
+import main.controller.BestellungController;
+import main.controller.BuchController;
+import main.controller.KontoController;
+import main.model.Bestellung;
+import main.model.Buch;
+import main.model.Konto;
+import main.repository.BestellungRepo;
+import main.repository.BuchRepo;
+import main.repository.KontoRepo;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
 public class BuchhandlungApp {
     public static void main(String[] args) {
         Buch b1 = new Buch("1b", "Pride and Prejudice", "Jane Austen", "Classic", 320, 1920, 34);

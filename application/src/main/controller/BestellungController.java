@@ -36,16 +36,9 @@ public class BestellungController {
     }
 
     public void addBestellung(Konto konto, LocalDateTime datum, String idBestellung, float gesamtPreis, String adresse, List<Buch> chosenBooks) throws Exception {
-        // Check if the account exists
+
         if (kontoRepo.getById(konto.getUsername())) {
-            // Create a new order for the account
 
-//                  datum;
-//    private String idBestellung;
-//    private float gesamtpreis;
-//    private String adresse;
-
-            // Add the chosen books to the order
             for (Buch buch : chosenBooks) {
                 if (buchRepo.getById(buch.getIdBuch())) {
                     Bestellung bestellung = new Bestellung(datum, idBestellung, gesamtPreis, adresse, chosenBooks);

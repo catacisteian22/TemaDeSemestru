@@ -3,6 +3,8 @@ package main.controller;
 import main.model.Buch;
 import main.repository.BuchRepo;
 
+import java.util.List;
+
 public class BuchController {
 
     private final BuchRepo buchRepo;
@@ -59,7 +61,9 @@ public class BuchController {
         return null;
     }
 
-    public BuchRepo getAll(){
-        return buchRepo;
+    public List<Buch> getAll(){
+        return buchRepo.getAll();
     }
+
+
 }

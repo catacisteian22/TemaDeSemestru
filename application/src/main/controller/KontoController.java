@@ -2,6 +2,7 @@ package main.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import main.model.Konto;
 import main.repository.KontoRepo;
@@ -58,7 +59,7 @@ public class KontoController {
         return null;
     }
 
-    public KontoRepo getAll() {
-        return kontoRepo;
+    public List<Konto> getAll() {
+        return kontoRepo.getAll();
     }
 }

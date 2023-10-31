@@ -50,4 +50,13 @@ public class BuchRepo implements InMemoryRepo<Buch> {
     public List<Buch> getAll() {
         return buchList;
     }
+
+    public Buch getByTitel(String titel) {
+        for (Buch buch : buchList) {
+            if (buch.getTitle() == titel) {
+                return buch;
+            }
+        }
+        return null;
+    }
 }
