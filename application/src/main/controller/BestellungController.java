@@ -24,11 +24,11 @@ public class BestellungController {
     }
 
 
-    public boolean delete(String username) {
+    public boolean delete(String idBestellung) {
 
-        for (Konto konto : kontoRepo.getAll()) {
-            if (konto.getUsername().equals(username)) {
-                kontoRepo.delete(username);
+        for (Bestellung b : bestellungRepo.getAll()) {
+            if (b.getIdBestellung()==idBestellung) {
+                bestellungRepo.delete(idBestellung);
                 return true;
             }
         }
@@ -55,5 +55,40 @@ public class BestellungController {
                 }
             }
         }
+    }
+
+    public boolean update(LocalDateTime datum, String idBestellung, float gesamtpreis, String adresse, List<Buch> listeBucher ) {
+
+        for (Bestellung b : bestellungRepo.getAll()) {
+            if (b.getIdBestellung().equals(idBestellung)) {
+                Bestellung newBestellung = new Bestellung(datum, idBestellung,  gesamtpreis, adresse, listeBucher);
+                bestellungRepo.update(b.getIdBestellung(), newBestellung);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Bestellung getByID(String id){
+        for(Bestellung b: bestellungRepo.getAll()){
+            if(b.getIdBestellung().equals(id))
+                return b;
+        }
+        return null;
+    }
+
+    public BestellungRepo getAll(){
+        return bestellungRepo;
+    }
+
+    public float calculateTotalPrice(List<Buch> chosenBooks) {
+        float totalPrice = 0;
+
+        for (Buch book : chosenBooks) {
+            totalPrice += book.getPreis();
+        }
+
+        return totalPrice;
     }
 }

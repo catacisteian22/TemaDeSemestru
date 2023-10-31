@@ -13,9 +13,6 @@ public class BuchRepo implements InMemoryRepo<Buch> {
         this.buchList = buchList;
     }
 
-    /**
-     * @param b
-     */
 //    @Override
     public void add(Buch b) {
         buchList.add(b);
