@@ -1,6 +1,12 @@
 package main.model;
 
-public class Kunde extends Person {
+import java.util.Date;
+
+public class Kunde  {
+    private String name;
+    private String vorname;
+    private String email;
+    private Date geburtsDatum;
     private String idKunde;
 
     public String getName() {

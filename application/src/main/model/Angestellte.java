@@ -2,7 +2,12 @@ package main.model;
 
 import java.util.Date;
 
-public class Angestellte extends Person{
+public class Angestellte {
+
+    private String name;
+    private String vorname;
+    private String email;
+    private Date geburtsDatum;
     private String idAngestellte;
     private String rolle;
     private int gehalt;
