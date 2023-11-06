@@ -3,6 +3,8 @@ import main.controller.BuchController;
 import main.controller.KontoController;
 import main.model.Bestellung;
 import main.model.Buch;
+import main.model.BuchFactory.*;
+import main.model.Buchhandlung;
 import main.model.Konto;
 import main.repository.BestellungRepo;
 import main.repository.BuchRepo;
@@ -19,11 +21,27 @@ import java.util.Scanner;
 
 public class BuchhandlungApp {
     public static void main(String[] args) {
-        Buch b1 = new Buch("1b", "Pride and Prejudice", "Jane Austen", "Classic", 320, 1920, 34);
-        Buch b2 = new Buch("2b", "Jane Eyre", "Charlotte Bronte", "Classic", 320, 1920, 34);
-        Buch b3 = new Buch("3b", "Doamna Bovary", "Gustave Flaubert", "Classic", 320, 1920, 34);
-        Buch b4 = new Buch("4b", "Acolo unde canta racii", "Delia Owens", "Action", 320, 1920, 34);
-        Buch b5 = new Buch("5b", "Istoria secreta", "Donna Tartt", "Mystery", 320, 1920, 34);
+        Buchhandlung bookstore = Buchhandlung.getInstance("La Catalina si Elena ");
+        System.out.println("Bookstore name: " + bookstore.getName());
+
+        RomanceBuchFactory romanceBuchFactory = new RomanceBuchFactory();
+        ActionBuchFactory actionBuchFactory = new ActionBuchFactory();
+        BiologieBuchFactory biologieBuchFactory = new BiologieBuchFactory();
+        MysteryBuchFactory mysteryBuchFactory = new MysteryBuchFactory();
+        ThrillerBuchFactory thrillerBuchFactory = new ThrillerBuchFactory();
+        YABuchFactory yaBuchFactory = new YABuchFactory();
+        ChemieBuchFactory chemieBuchFactory = new ChemieBuchFactory();
+        MathematikBuchFactory mathematikBuchFactory = new MathematikBuchFactory();
+        PhysikBuchFactory physikBuchFactory = new PhysikBuchFactory();
+        PsychologieBuchFactory psychologieBuchFactory = new PsychologieBuchFactory();
+
+        Buch b6 = romanceBuchFactory.createBuch("1b", "Pride and Prejudice", "Jane Austen", 212, 1889, 12);
+
+//        Buch b1 = new Buch("1b", "Pride and Prejudice", "Jane Austen", "Classic", 320, 1920, 34);
+//        Buch b2 = new Buch("2b", "Jane Eyre", "Charlotte Bronte", "Classic", 320, 1920, 34);
+//        Buch b3 = new Buch("3b", "Doamna Bovary", "Gustave Flaubert", "Classic", 320, 1920, 34);
+//        Buch b4 = new Buch("4b", "Acolo unde canta racii", "Delia Owens", "Action", 320, 1920, 34);
+//        Buch b5 = new Buch("5b", "Istoria secreta", "Donna Tartt", "Mystery", 320, 1920, 34);
         Konto konto1 = new Konto("us1", "1234", LocalDateTime.now(), "Kunde");
         Konto konto2 = new Konto("us2", "1234", LocalDateTime.now(), "Kunde");
         List<Konto> kontoList = new ArrayList<>();
