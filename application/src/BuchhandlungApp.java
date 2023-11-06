@@ -51,6 +51,7 @@ public class BuchhandlungApp {
         buchList.add(b3);
         buchList.add(b4);
         buchList.add(b5);
+        buchList.add(b6);
 
         kontoList.add(konto1);
         kontoList.add(konto2);

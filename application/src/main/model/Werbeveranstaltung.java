@@ -1,6 +1,7 @@
-package main.model;
+//package main.model;
 
 import java.time.LocalDateTime;
+import java.util.Observable;
 
 //public class Werbeveranstaltung extends Observable {
 //    private LocalDateTime dateWerbe;

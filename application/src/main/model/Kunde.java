@@ -1,8 +1,9 @@
 package main.model;
 
 import java.util.Date;
+import java.util.Observer;
 
-public class Kunde  {
+public abstract class Kunde {
     private String name;
     private String vorname;
     private String email;

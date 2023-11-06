@@ -1,10 +1,11 @@
 package main.repository;
 
 import main.model.Kunde;
+import main.model.KundeObserver;
 
 import java.util.List;
 
-public class KundeRepo implements InMemoryRepo<Kunde>{
+public abstract class KundeRepo implements InMemoryRepo<Kunde>, KundeObserver {
     List<Kunde> kundeList;
 
     public KundeRepo(List<Kunde> kundeList) {
@@ -49,5 +50,10 @@ public class KundeRepo implements InMemoryRepo<Kunde>{
 
     public List<Kunde> getAll() {
         return kundeList;
+    }
+
+    @Override
+    public void updateKunden() {
+
     }
 }
