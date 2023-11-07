@@ -7,9 +7,24 @@ import java.util.List;
 public class BuchRepo implements InMemoryRepo<Buch> {
 
     private List<Buch> buchList;
+    private static BuchRepo instance;
 
-    public BuchRepo(List<Buch> buchList) {
+    private BuchRepo(List<Buch> buchList) {
+        this.buchList = buchList;
+    }
 
+    public static synchronized BuchRepo getInstance(List<Buch> buchList) {
+        if (instance == null) {
+            instance = new BuchRepo(buchList);
+        }
+        return instance;
+    }
+
+    public List<Buch> getBuchList() {
+        return buchList;
+    }
+
+    public void setBuchList(List<Buch> buchList) {
         this.buchList = buchList;
     }
 
@@ -50,7 +65,7 @@ public class BuchRepo implements InMemoryRepo<Buch> {
         return null;
     }
 
-    //    @Override
+//    @Override
 //    public Buch getId() {
 //        for (Buch buch : buchList) {
 //            if (buch.getId() == id) {

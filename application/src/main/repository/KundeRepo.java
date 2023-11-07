@@ -1,7 +1,6 @@
 package main.repository;
 
 import main.model.Kunde;
-import main.model.KundeObserver;
 
 import java.util.List;
 
@@ -13,12 +12,10 @@ public class KundeRepo implements InMemoryRepo<Kunde> {
         this.kundeList = kundeList;
     }
 
-    //    @Override
     public void add(Kunde b){
         kundeList.add(b);
     }
 
-    //    @Override
     public boolean getById(String id) {
         for (Kunde Kunde : kundeList) {
             if (Kunde.getIdKunde() == id) {

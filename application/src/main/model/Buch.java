@@ -1,5 +1,7 @@
 package main.model;
 
+import main.repository.Repository;
+
 //@Entity
 //@Table(name = "buch")
 public class Buch {
@@ -39,7 +41,7 @@ public class Buch {
     public String getIdBuch() {
         return idBuch;
     }
-//
+
 //    @Override
 //    public Object getId() {
 //        return idBuch;

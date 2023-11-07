@@ -6,9 +6,7 @@ import main.discount.NoDiscount;
 import main.discount.PercentageDiscount;
 import main.model.*;
 import main.BuchFactory.*;
-import main.repository.BestellungRepo;
-import main.repository.BuchRepo;
-import main.repository.KontoRepo;
+import main.repository.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,30 +31,32 @@ public class BuchhandlungApp {
         PhysikBuchFactory physikBuchFactory = new PhysikBuchFactory();
         PsychologieBuchFactory psychologieBuchFactory = new PsychologieBuchFactory();
 
-        Buch b6 = romanceBuchFactory.createBuch("1b", "Pride and Prejudice", "Jane Austen", 212, 1889, 12);
+        Buch b1 = romanceBuchFactory.createBuch("1b", "Pride and Prejudice", "Jane Austen", 212, 1889, 49);
+        Buch b2 = romanceBuchFactory.createBuch("2b", "Jane Eyre", "Charlotte Bronte", 320, 1920, 34);
+        Buch b3 = actionBuchFactory.createBuch("3b", "Jocurile foamei", "Suzanne Collins", 320, 2008, 25);
+        Buch b4 = actionBuchFactory.createBuch("4b", "Acolo unde canta racii", "Delia Owens", 320, 2016, 39);
+        Buch b5 = mysteryBuchFactory.createBuch("5b", "Istoria secreta", "Donna Tartt", 490, 1991, 55);
+        Buch b6 = physikBuchFactory.createBuch("6b", "Mehr als nur Atome", "Sabine Hossenfelder", 250, 2023, 35);
+        Buch b7 = yaBuchFactory.createBuch("7b", "Gallant", "V.E.Schwab", 345, 2017, 350);
 
-//        Buch b1 = new Buch("1b", "Pride and Prejudice", "Jane Austen", "Classic", 320, 1920, 34);
-//        Buch b2 = new Buch("2b", "Jane Eyre", "Charlotte Bronte", "Classic", 320, 1920, 34);
-//        Buch b3 = new Buch("3b", "Doamna Bovary", "Gustave Flaubert", "Classic", 320, 1920, 34);
-//        Buch b4 = new Buch("4b", "Acolo unde canta racii", "Delia Owens", "Action", 320, 1920, 34);
-//        Buch b5 = new Buch("5b", "Istoria secreta", "Donna Tartt", "Mystery", 320, 1920, 34);
         Konto konto1 = new Konto("us1", "1234", LocalDateTime.now(), "Kunde");
         Konto konto2 = new Konto("us2", "1234", LocalDateTime.now(), "Kunde");
+        Konto konto3 = new Konto("us3", "1389", LocalDateTime.now(), "Angestellte");
         List<Konto> kontoList = new ArrayList<>();
         List<Buch> buchList = new ArrayList<>();
-//        buchList.add(b1);
-//        buchList.add(b2);
-//        buchList.add(b3);
-//        buchList.add(b4);
-//        buchList.add(b5);
+        buchList.add(b1);
+        buchList.add(b2);
+        buchList.add(b3);
+        buchList.add(b4);
+        buchList.add(b5);
         buchList.add(b6);
+        buchList.add(b7);
 
         kontoList.add(konto1);
         kontoList.add(konto2);
+        kontoList.add(konto3);
 
-        List<Buch> chosenBooks = new ArrayList<>();
-//        chosenBooks.add(b1);
-//        chosenBooks.add(b2);
+        List<Buch> chosenBooks = chooseRandomBooks(buchList);
 
         DiscountStrategy percentageDiscount = new PercentageDiscount(0.1f); // 10% discount
         DiscountStrategy noDiscount = new NoDiscount();
@@ -75,7 +75,7 @@ public class BuchhandlungApp {
         bestellungList.add(bestellung5);
         bestellungList.add(bestellung6);
 
-        BuchRepo buchRepo = new BuchRepo(buchList); // Annahme: BuchRepo ist bereits implementiert
+        BuchRepo buchRepo = BuchRepo.getInstance(buchList);// Annahme: BuchRepo ist bereits implementiert
         KontoRepo kontoRepo = new KontoRepo(kontoList); // Annahme: KontoRepo ist bereits implementiert
         BestellungRepo bestellungRepo = new BestellungRepo(bestellungList); // Annahme: BestellungRepo ist bereits implementiert
 
@@ -83,20 +83,16 @@ public class BuchhandlungApp {
         KontoController kontoController = new KontoController(kontoRepo);
         BestellungController bestellungController = new BestellungController(bestellungRepo, kontoRepo, buchRepo);
 
-        Werbeveranstaltung werbeveranstaltung = new Werbeveranstaltung();
-        Kunde kunde1 = new Kunde(werbeveranstaltung);
-        werbeveranstaltung.createEvent(LocalDateTime.of(2023,11,02,12,0,0), "Reduceri de sezon!");
-
-
         Scanner scanner = new Scanner(System.in);
         int choice;
 
         do {
             System.out.println("Menu:");
-            System.out.println("1. Buch anzeigen");
+            System.out.println("1. Alle Bücher anzeigen: ");
             System.out.println("2. Wollen einzuloggen?");
             System.out.println("3. Alle Kontos anschauen:");
             System.out.println("4. Eine Bestellung aufgeben:");
+            System.out.println("5. Alle Werberveranstaltungen fur Kunden:");
             System.out.println("0. Beenden");
             System.out.print("Wähle eine Option: ");
 
@@ -104,7 +100,7 @@ public class BuchhandlungApp {
 
             switch (choice) {
                 case 1:
-                    for (Buch book : buchController.getAll()) {
+                    for (Buch book : buchRepo.getAll()) {
                         System.out.println(book.toString());
                     }
                     break;
@@ -196,14 +192,6 @@ public class BuchhandlungApp {
                         } catch (IOException e) {
                             System.out.println("Error reading input: " + e.getMessage());
                         }
-//                        List<Buch> booksChosen = new ArrayList<>();
-//                        for (Buch book : buchController.getAll()) {
-//                            System.out.println("Do you want to order " + buchController.getAll(). + "? (yes/no)");
-//                            String choice = scanner.next().toLowerCase();
-//                            if (choice.equals("yes")) {
-//                                booksChosen.add(book);
-//                            }
-//                        }
 
                         float totalPrice = bestellungController.calculateTotalPrice(chosenBooks);
                         if(totalPrice>200){
@@ -225,6 +213,20 @@ public class BuchhandlungApp {
                         System.out.println("Invalid username. Please try again.");
                     }
                     break;
+                case 5:
+                    System.out.println("Enter your username:");
+                    String userWerbe = scanner.next();
+
+                    Konto loggedIn = kontoController.getByUsername(userWerbe);
+                    if(loggedIn.getTyp() == "Kunde"){
+                        Werbeveranstaltung werbeveranstaltung = new Werbeveranstaltung();
+                        Kunde kunde1 = new Kunde(werbeveranstaltung);
+                        werbeveranstaltung.createEvent(LocalDateTime.of(2023,11,02,12,0,0), "Reduceri de sezon!");
+
+                    }
+                    else{
+                        System.out.println("Error, du bist nicht einen Kunden!");
+                    }
 
                 case 0:
                     System.out.println("Programm wird beendet.");
@@ -248,5 +250,21 @@ public class BuchhandlungApp {
         }
 
         return stringBuilder.toString();
+    }
+
+    public static List<Buch> chooseRandomBooks(List<Buch> buchList) {
+        List<Buch> chosenBooks = new ArrayList<>();
+        Random random = new Random();
+
+        // Generate a random number of books to choose between 1 and buchList.size()
+        int numberOfBooksToChoose = random.nextInt(buchList.size()) + 1;
+
+        for (int i = 0; i < numberOfBooksToChoose; i++) {
+            int randomIndex = random.nextInt(buchList.size());
+            chosenBooks.add(buchList.get(randomIndex));
+            buchList.remove(randomIndex);
+        }
+
+        return chosenBooks;
     }
 }

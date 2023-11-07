@@ -15,7 +15,7 @@ public class RepoTest {
     public void test_BuchRepo_add(){
         Buch b1 = new Buch("1b","Pride and Prejudice","Jane Austen", "Classic", 320, 1920, 34);
         List<Buch> buchList= new ArrayList<>();
-        BuchRepo buchRepo = new BuchRepo(buchList);
+        BuchRepo buchRepo = BuchRepo.getInstance(buchList);
 
         buchRepo.add(b1);
         assertEquals(1, buchList.size());
@@ -26,7 +26,7 @@ public class RepoTest {
         Buch b1 = new Buch("1b","Pride and Prejudice","Jane Austen", "Classic", 320, 1920, 34);
         Buch b2 = new Buch("2b","Pride and Prejudice","Jane Austen", "Classic", 320, 1920, 34);
         List<Buch> buchList= new ArrayList<>();
-        BuchRepo buchRepo = new BuchRepo(buchList);
+        BuchRepo buchRepo = BuchRepo.getInstance(buchList);
         buchRepo.add(b1);
         buchRepo.add(b2);
 

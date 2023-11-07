@@ -38,7 +38,7 @@ public class ControllerTest {
         List<Bestellung> bestellungList = new ArrayList<>();
         bestellungList.add(bestellung1);
 
-        BuchRepo buchRepo = new BuchRepo(buchList);
+        BuchRepo buchRepo = BuchRepo.getInstance(buchList);
         KontoRepo kontoRepo = new KontoRepo(kontoList);
         BestellungRepo bestellungRepo = new BestellungRepo(bestellungList);
 
