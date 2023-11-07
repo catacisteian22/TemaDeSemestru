@@ -1,4 +1,4 @@
-package main.model.BuchFactory;
+package main.BuchFactory;
 import main.model.Buch;
 
 public class RomanceBuchFactory implements  BuchFactory {

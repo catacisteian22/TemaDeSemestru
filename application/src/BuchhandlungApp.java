@@ -1,11 +1,11 @@
 import main.controller.BestellungController;
 import main.controller.BuchController;
 import main.controller.KontoController;
-import main.model.Bestellung;
-import main.model.Buch;
-import main.model.BuchFactory.*;
-import main.model.Buchhandlung;
-import main.model.Konto;
+import main.discount.DiscountStrategy;
+import main.discount.NoDiscount;
+import main.discount.PercentageDiscount;
+import main.model.*;
+import main.BuchFactory.*;
 import main.repository.BestellungRepo;
 import main.repository.BuchRepo;
 import main.repository.KontoRepo;
@@ -21,8 +21,6 @@ import java.util.Scanner;
 
 public class BuchhandlungApp {
     public static void main(String[] args) {
-        Buchhandlung bookstore = Buchhandlung.getInstance("La Catalina si Elena ");
-        System.out.println("Bookstore name: " + bookstore.getName());
 
         RomanceBuchFactory romanceBuchFactory = new RomanceBuchFactory();
         ActionBuchFactory actionBuchFactory = new ActionBuchFactory();
@@ -46,23 +44,35 @@ public class BuchhandlungApp {
         Konto konto2 = new Konto("us2", "1234", LocalDateTime.now(), "Kunde");
         List<Konto> kontoList = new ArrayList<>();
         List<Buch> buchList = new ArrayList<>();
-        buchList.add(b1);
-        buchList.add(b2);
-        buchList.add(b3);
-        buchList.add(b4);
-        buchList.add(b5);
+//        buchList.add(b1);
+//        buchList.add(b2);
+//        buchList.add(b3);
+//        buchList.add(b4);
+//        buchList.add(b5);
         buchList.add(b6);
 
         kontoList.add(konto1);
         kontoList.add(konto2);
 
         List<Buch> chosenBooks = new ArrayList<>();
-        chosenBooks.add(b1);
-        chosenBooks.add(b2);
+//        chosenBooks.add(b1);
+//        chosenBooks.add(b2);
 
+        DiscountStrategy percentageDiscount = new PercentageDiscount(0.1f); // 10% discount
+        DiscountStrategy noDiscount = new NoDiscount();
         Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), "1", 179, "Unirii", chosenBooks);
         List<Bestellung> bestellungList = new ArrayList<>();
         bestellungList.add(bestellung1);
+
+        Bestellung bestellungMitDiscountStg = new Bestellung(percentageDiscount);
+
+//        float totalPrice = 100.0f;
+//        float discountedPrice = bestellungMitDiscountStg.calculateGesamtpreis(totalPrice);
+//        System.out.println("Total Price (with 10% discount): " + discountedPrice);
+//
+//        // Change the discount strategy dynamically
+//        bestellungMitDiscountStg.setDiscountStrategy(noDiscount);
+//        discountedPrice = bestellungMitDiscountStg.calculateGesamtpreis(totalPrice);
 
         BuchRepo buchRepo = new BuchRepo(buchList); // Annahme: BuchRepo ist bereits implementiert
         KontoRepo kontoRepo = new KontoRepo(kontoList); // Annahme: KontoRepo ist bereits implementiert
@@ -71,6 +81,11 @@ public class BuchhandlungApp {
         BuchController buchController = new BuchController(buchRepo);
         KontoController kontoController = new KontoController(kontoRepo);
         BestellungController bestellungController = new BestellungController(bestellungRepo, kontoRepo, buchRepo);
+
+        Werbeveranstaltung werbeveranstaltung = new Werbeveranstaltung();
+        Kunde kunde1 = new Kunde(werbeveranstaltung);
+        werbeveranstaltung.createEvent(LocalDateTime.of(2023,11,02,12,0,0), "Reduceri de sezon!");
+
 
         Scanner scanner = new Scanner(System.in);
         int choice;

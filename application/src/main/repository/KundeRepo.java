@@ -5,7 +5,7 @@ import main.model.KundeObserver;
 
 import java.util.List;
 
-public abstract class KundeRepo implements InMemoryRepo<Kunde>, KundeObserver {
+public class KundeRepo implements InMemoryRepo<Kunde> {
     List<Kunde> kundeList;
 
     public KundeRepo(List<Kunde> kundeList) {
@@ -52,8 +52,4 @@ public abstract class KundeRepo implements InMemoryRepo<Kunde>, KundeObserver {
         return kundeList;
     }
 
-    @Override
-    public void updateKunden() {
-
-    }
 }

@@ -3,6 +3,7 @@ package main.repository;
 import main.model.Bestellung;
 
 import java.util.List;
+import java.util.Objects;
 
 public class BestellungRepo implements InMemoryRepo<Bestellung> {
 
@@ -16,15 +17,13 @@ public class BestellungRepo implements InMemoryRepo<Bestellung> {
     /**
      * @param b
      */
-//    @Override
     public void add(Bestellung b){
         bestellungList.add(b);
     }
 
-    //    @Override
     public boolean getById(String id) {
         for (Bestellung bestellung : bestellungList) {
-            if (bestellung.getIdBestellung() == id) {
+            if (Objects.equals(bestellung.getIdBestellung(), id)) {
                 return true;
             }
         }
@@ -32,11 +31,7 @@ public class BestellungRepo implements InMemoryRepo<Bestellung> {
     }
 
     public void delete(String id) {
-        for (Bestellung bestellung : bestellungList) {
-            if (bestellung.getIdBestellung() == id) {
-                bestellungList.remove(bestellung);
-            }
-        }
+        bestellungList.removeIf(bestellung -> Objects.equals(bestellung.getIdBestellung(), id));
 
     }
 

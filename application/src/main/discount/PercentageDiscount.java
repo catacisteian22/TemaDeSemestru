@@ -1,4 +1,4 @@
-package main.model.discount;
+package main.discount;
 
 public class PercentageDiscount implements DiscountStrategy {
     private float discountPercentage;

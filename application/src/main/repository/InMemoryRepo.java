@@ -1,5 +1,5 @@
 package main.repository;
-
+//import main.model.Identifiable;
 import java.util.List;
 
 public interface InMemoryRepo<E> {

@@ -1,5 +1,7 @@
 package main.model;
 
+import main.discount.DiscountStrategy;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,19 @@ public class Bestellung extends Wishlist{
         return (ArrayList<Buch>) listeBucher;
     }
 
+    private DiscountStrategy discountStrategy;
+
+    public Bestellung(DiscountStrategy discountStrategy) {
+        this.discountStrategy = discountStrategy;
+    }
+
+    public void setDiscountStrategy(DiscountStrategy discountStrategy) {
+        this.discountStrategy = discountStrategy;
+    }
+
+    public float calculateGesamtpreis(float gesamtpreis) {
+        return discountStrategy.applyDiscount(gesamtpreis);
+    }
     public void setListeBucher(List<Buch> listeBucher) {
         this.listeBucher = listeBucher;
     }

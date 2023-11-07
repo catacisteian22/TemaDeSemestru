@@ -1,14 +1,34 @@
 package main.model;
 
-import java.util.Date;
-import java.util.Observer;
+import main.observer.Display;
+import main.observer.Observer;
 
-public abstract class Kunde {
+import java.time.LocalDateTime;
+import java.util.Date;
+
+public class Kunde implements Observer, Display {
     private String name;
     private String vorname;
     private String email;
     private Date geburtsDatum;
     private String idKunde;
+    private Werbeveranstaltung werbeveranstaltung;
+
+    public Kunde(Werbeveranstaltung werbeveranstaltung) {
+        this.werbeveranstaltung = werbeveranstaltung;
+        this.werbeveranstaltung.registerObserver(this);
+    }
+
+    @Override
+    public void update(LocalDateTime dateWerbe, String titelWerbe) {
+        this.display(dateWerbe, titelWerbe);
+    }
+
+    @Override
+    public void display(LocalDateTime dateWerbe, String titelWerbe) {
+        System.out.println("There is a new Event: " + titelWerbe);
+        System.out.println("The date is: " + dateWerbe);
+    }
 
     public String getName() {
         return name;

@@ -6,25 +6,15 @@ import java.util.List;
 
 public class BuchRepo implements InMemoryRepo<Buch> {
 
-    List<Buch> buchList;
+    private List<Buch> buchList;
 
     public BuchRepo(List<Buch> buchList) {
 
         this.buchList = buchList;
     }
 
-//    @Override
     public void add(Buch b) {
         buchList.add(b);
-    }
-
-    public boolean getById(String id) {
-        for (Buch buch : buchList) {
-            if (buch.getIdBuch() == id) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public void delete(String id) {
@@ -58,5 +48,23 @@ public class BuchRepo implements InMemoryRepo<Buch> {
             }
         }
         return null;
+    }
+
+    //    @Override
+//    public Buch getId() {
+//        for (Buch buch : buchList) {
+//            if (buch.getId() == id) {
+//                return buch;
+//            }
+//        }
+//        return null;
+//    }
+    public boolean getById(String id) {
+        for (Buch buch : buchList) {
+            if (buch.getIdBuch() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

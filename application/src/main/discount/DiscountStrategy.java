@@ -1,4 +1,4 @@
-package main.model.discount;
+package main.discount;
 
 public interface DiscountStrategy {
     float applyDiscount(float totalPrice);

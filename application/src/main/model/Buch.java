@@ -35,9 +35,15 @@ public class Buch {
                 '}';
     }
 
+//
     public String getIdBuch() {
         return idBuch;
     }
+//
+//    @Override
+//    public Object getId() {
+//        return idBuch;
+//    }
 
     public void setIdBuch(String idBuch) {
         this.idBuch = idBuch;
