@@ -60,19 +60,20 @@ public class BuchhandlungApp {
 
         DiscountStrategy percentageDiscount = new PercentageDiscount(0.1f); // 10% discount
         DiscountStrategy noDiscount = new NoDiscount();
+        Bestellung bestellung6 = new Bestellung(LocalDateTime.now(), "6", 40, "Unirii", chosenBooks);
+        Bestellung bestellung5 = new Bestellung(LocalDateTime.now(), "5", 889, "Piata Cipariu", chosenBooks);
+        Bestellung bestellung4 = new Bestellung(LocalDateTime.now(), "4", 58, "Principala", chosenBooks);
+        Bestellung bestellung3 = new Bestellung(LocalDateTime.now(), "3", 290, "Macinului", chosenBooks);
+        Bestellung bestellung2 = new Bestellung(LocalDateTime.now(), "2", 999, "Unirii", chosenBooks);
         Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), "1", 179, "Unirii", chosenBooks);
         List<Bestellung> bestellungList = new ArrayList<>();
+
         bestellungList.add(bestellung1);
-
-        Bestellung bestellungMitDiscountStg = new Bestellung(percentageDiscount);
-
-//        float totalPrice = 100.0f;
-//        float discountedPrice = bestellungMitDiscountStg.calculateGesamtpreis(totalPrice);
-//        System.out.println("Total Price (with 10% discount): " + discountedPrice);
-//
-//        // Change the discount strategy dynamically
-//        bestellungMitDiscountStg.setDiscountStrategy(noDiscount);
-//        discountedPrice = bestellungMitDiscountStg.calculateGesamtpreis(totalPrice);
+        bestellungList.add(bestellung2);
+        bestellungList.add(bestellung3);
+        bestellungList.add(bestellung4);
+        bestellungList.add(bestellung5);
+        bestellungList.add(bestellung6);
 
         BuchRepo buchRepo = new BuchRepo(buchList); // Annahme: BuchRepo ist bereits implementiert
         KontoRepo kontoRepo = new KontoRepo(kontoList); // Annahme: KontoRepo ist bereits implementiert
@@ -205,7 +206,15 @@ public class BuchhandlungApp {
 //                        }
 
                         float totalPrice = bestellungController.calculateTotalPrice(chosenBooks);
-                        System.out.println("Total price:"+ totalPrice);
+                        if(totalPrice>200){
+                            float newPrice = percentageDiscount.applyDiscount(totalPrice);
+                            System.out.println("Initial price: " + totalPrice);
+                            System.out.println("New Price: " + newPrice);
+                        }
+                        else {
+                            System.out.println("Total price:"+ totalPrice);
+                        }
+
                         try {
                             bestellungController.addBestellung(loggedInBestellung, LocalDateTime.now(), orderId, totalPrice, deliveryAddress, chosenBooks);
                             System.out.println("Order placed successfully.");

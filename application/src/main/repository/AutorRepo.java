@@ -3,24 +3,32 @@ package main.repository;
 import main.model.Autor;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AutorRepo implements InMemoryRepo<Autor> {
+    private static AutorRepo instance; // The single instance of AutorRepo
 
-    List<Autor> AutorList;
+    private List<Autor> autorList;
 
-    public AutorRepo(List<Autor> AutorList) {
-
-        this.AutorList = AutorList;
+    private AutorRepo(List<Autor> autorList) {
+        this.autorList = autorList;
     }
 
-    //    @Override
+    // Use a synchronized method to ensure thread safety during initialization
+    public static synchronized AutorRepo getInstance(List<Autor> autorList) {
+        if (instance == null) {
+            instance = new AutorRepo(autorList);
+        }
+        return instance;
+    }
+
     public void add(Autor b) {
-        AutorList.add(b);
+        autorList.add(b);
     }
 
     public boolean getById(String id) {
-        for (Autor Autor : AutorList) {
-            if (Autor.getIdAutor() == id) {
+        for (Autor autor : autorList) {
+            if (Objects.equals(autor.getIdAutor(), id)) {
                 return true;
             }
         }
@@ -28,19 +36,14 @@ public class AutorRepo implements InMemoryRepo<Autor> {
     }
 
     public void delete(String id) {
-        for (Autor Autor : AutorList) {
-            if (Autor.getIdAutor() == id) {
-                AutorList.remove(Autor);
-            }
-        }
-
+        autorList.removeIf(autor -> Objects.equals(autor.getIdAutor(), id));
     }
 
     public Autor update(String id, Autor newAutor) {
-        for (int i = 0; i < AutorList.size(); i++) {
-            Autor Autor = AutorList.get(i);
-            if (Autor.getIdAutor().equals(id)) {
-                AutorList.set(i, newAutor);
+        for (int i = 0; i < autorList.size(); i++) {
+            Autor autor = autorList.get(i);
+            if (Objects.equals(autor.getIdAutor(), id)) {
+                autorList.set(i, newAutor);
                 return newAutor;
             }
         }
@@ -48,6 +51,6 @@ public class AutorRepo implements InMemoryRepo<Autor> {
     }
 
     public List<Autor> getAll() {
-        return AutorList;
+        return autorList;
     }
 }

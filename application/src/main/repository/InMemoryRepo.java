@@ -1,8 +1,8 @@
 package main.repository;
-//import main.model.Identifiable;
+import main.model.Identifiable;
 import java.util.List;
 
-public interface InMemoryRepo<E> {
+public interface InMemoryRepo<E>  { //extends Identifiable
 
     void add(E entity);
     void delete(String id);

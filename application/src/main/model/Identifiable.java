@@ -1,6 +1,5 @@
-//package main.model;
-//
-//public interface Identifiable<E> {
-//
-//    E getId();
-//}
+package main.model;
+
+public interface Identifiable<E> {
+    E getId();
+}
