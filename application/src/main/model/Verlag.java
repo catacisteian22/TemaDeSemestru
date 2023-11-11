@@ -1,9 +1,12 @@
 package main.model;
 
 public class Verlag {
+    
+
+    private String idVerlag;
     private String name;
     private String adresse;
-    private int telefonNummer;
+    private String telefonNummer;
     private String email;
 
     public String getName() {
@@ -22,11 +25,11 @@ public class Verlag {
         this.adresse = adresse;
     }
 
-    public int getTelefonNummer() {
+    public String getTelefonNummer() {
         return telefonNummer;
     }
 
-    public void setTelefonNummer(int telefonNummer) {
+    public void setTelefonNummer(String telefonNummer) {
         this.telefonNummer = telefonNummer;
     }
 
@@ -36,5 +39,13 @@ public class Verlag {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getIdVerlag() {
+        return idVerlag;
+    }
+
+    public void setIdVerlag(String idVerlag) {
+        this.idVerlag = idVerlag;
     }
 }

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Werbeveranstaltung implements Observable {
+    private String idWerbe;
     private LocalDateTime dateWerbe;
     private String titelWerbe;
     private ArrayList<Observer> observerKunden;
@@ -15,7 +16,8 @@ public class Werbeveranstaltung implements Observable {
         observerKunden = new ArrayList<>();
     }
 
-    public void createEvent(LocalDateTime dateWerbe, String titelWerbe) {
+    public void createEvent(String idWerbe, LocalDateTime dateWerbe, String titelWerbe) {
+        this.setIdWerbe(idWerbe);
         this.setDateWerbe(dateWerbe);
         this.setTitelWerbe(titelWerbe);
         this.notifyObservers();
@@ -52,5 +54,13 @@ public class Werbeveranstaltung implements Observable {
 
     public void setDateWerbe(LocalDateTime dateWerbe) {
         this.dateWerbe = dateWerbe;
+    }
+
+    public String getIdWerbe() {
+        return idWerbe;
+    }
+
+    public void setIdWerbe(String idWerbe) {
+        this.idWerbe = idWerbe;
     }
 }

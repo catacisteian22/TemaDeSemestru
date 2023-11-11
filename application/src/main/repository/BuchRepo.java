@@ -4,7 +4,7 @@ import main.model.Buch;
 
 import java.util.List;
 
-public class BuchRepo implements InMemoryRepo<Buch> {
+public class BuchRepo extends Repository<Buch> {
 
     private List<Buch> buchList;
     private static BuchRepo instance;
@@ -13,7 +13,7 @@ public class BuchRepo implements InMemoryRepo<Buch> {
         this.buchList = buchList;
     }
 
-    public static synchronized BuchRepo getInstance(List<Buch> buchList) {
+    public static  BuchRepo getInstance(List<Buch> buchList) {
         if (instance == null) {
             instance = new BuchRepo(buchList);
         }
@@ -76,7 +76,7 @@ public class BuchRepo implements InMemoryRepo<Buch> {
 //    }
     public boolean getById(String id) {
         for (Buch buch : buchList) {
-            if (buch.getIdBuch() == id) {
+            if (buch.getId() == id) {
                 return true;
             }
         }

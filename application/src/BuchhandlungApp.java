@@ -42,7 +42,13 @@ public class BuchhandlungApp {
         Konto konto1 = new Konto("us1", "1234", LocalDateTime.now(), "Kunde");
         Konto konto2 = new Konto("us2", "1234", LocalDateTime.now(), "Kunde");
         Konto konto3 = new Konto("us3", "1389", LocalDateTime.now(), "Angestellte");
+        Konto konto4 = new Konto("us4", "1234", LocalDateTime.now(), "Angestellte");
+        Konto konto5 = new Konto("us5", "1234", LocalDateTime.now(), "Kunde");
+        Konto konto6 = new Konto("us6", "1234", LocalDateTime.now(), "Kunde");
+
         List<Konto> kontoList = new ArrayList<>();
+        List<Konto> kontosToNotify = new ArrayList<>();
+
         List<Buch> buchList = new ArrayList<>();
         buchList.add(b1);
         buchList.add(b2);
@@ -60,6 +66,7 @@ public class BuchhandlungApp {
 
         DiscountStrategy percentageDiscount = new PercentageDiscount(0.1f); // 10% discount
         DiscountStrategy noDiscount = new NoDiscount();
+        DiscountStrategy discountStrategy = new NoDiscount();
         Bestellung bestellung6 = new Bestellung(LocalDateTime.now(), "6", 40, "Unirii", chosenBooks);
         Bestellung bestellung5 = new Bestellung(LocalDateTime.now(), "5", 889, "Piata Cipariu", chosenBooks);
         Bestellung bestellung4 = new Bestellung(LocalDateTime.now(), "4", 58, "Principala", chosenBooks);
@@ -92,7 +99,8 @@ public class BuchhandlungApp {
             System.out.println("2. Wollen einzuloggen?");
             System.out.println("3. Alle Kontos anschauen:");
             System.out.println("4. Eine Bestellung aufgeben:");
-            System.out.println("5. Alle Werberveranstaltungen fur Kunden:");
+            System.out.println("5. Willst du an Veranstaltungen teilnehmen?");
+            System.out.println("6. Create new event");
             System.out.println("0. Beenden");
             System.out.print("Wähle eine Option: ");
 
@@ -141,7 +149,7 @@ public class BuchhandlungApp {
                         }
 
                         // Update the account
-                        boolean updateSuccessful = kontoController.update(loggedInAccount.getUsername(), loggedInAccount.getPassword(),loggedInAccount.getJoinDatum(), loggedInAccount.getTyp());
+                        boolean updateSuccessful = kontoController.update(loggedInAccount.getUsername(), loggedInAccount.getPassword(), loggedInAccount.getJoinDatum(), loggedInAccount.getTyp());
                         if (updateSuccessful) {
                             System.out.println("Account updated successfully.");
                         } else {
@@ -194,16 +202,16 @@ public class BuchhandlungApp {
                         }
 
                         float totalPrice = bestellungController.calculateTotalPrice(chosenBooks);
-                        if(totalPrice>200){
-                            float newPrice = percentageDiscount.applyDiscount(totalPrice);
+                        if (totalPrice > 200) {
+                            //float newPrice = percentageDiscount.applyDiscount(totalPrice);
+                            discountStrategy = percentageDiscount;
                             System.out.println("Initial price: " + totalPrice);
-                            System.out.println("New Price: " + newPrice);
-                        }
-                        else {
-                            System.out.println("Total price:"+ totalPrice);
+                        } else {
+                            System.out.println("Total price:" + totalPrice);
                         }
 
                         try {
+                            float bestellungPreis = discountStrategy.applyDiscount(totalPrice);
                             bestellungController.addBestellung(loggedInBestellung, LocalDateTime.now(), orderId, totalPrice, deliveryAddress, chosenBooks);
                             System.out.println("Order placed successfully.");
                         } catch (Exception e) {
@@ -218,14 +226,28 @@ public class BuchhandlungApp {
                     String userWerbe = scanner.next();
 
                     Konto loggedIn = kontoController.getByUsername(userWerbe);
-                    if(loggedIn.getTyp() == "Kunde"){
+                    if (loggedIn.getTyp() == "Kunde") {
+                        System.out.println("Wollen Sie notified werden? Ja/Nein");
+                        String answer = scanner.next();
+                        if (answer.equals("Ja")){
+                            kontosToNotify.add(loggedIn);
+                            System.out.println("You'll receive an email for the next event!");
+                        }
                         Werbeveranstaltung werbeveranstaltung = new Werbeveranstaltung();
                         Kunde kunde1 = new Kunde(werbeveranstaltung);
-                        werbeveranstaltung.createEvent(LocalDateTime.of(2023,11,02,12,0,0), "Reduceri de sezon!");
-
-                    }
-                    else{
+                        werbeveranstaltung.createEvent(LocalDateTime.of(2023, 11, 02, 12, 0, 0), "Reduceri de sezon!");
+                    } else {
                         System.out.println("Error, du bist nicht einen Kunden!");
+                    }
+
+                case 6:
+                    System.out.println("Enter your username:");
+                    String newUserWerbe = scanner.next();
+                    Konto loggedInAGST = kontoController.getByUsername(newUserWerbe);
+                    if (loggedInAGST.getTyp() == "Angestellte") {
+                        Werbeveranstaltung werbeveranstaltung = new Werbeveranstaltung();
+                        werbeveranstaltung.createEvent(LocalDateTime.of(2023, 11, 02, 12, 0, 0), "Reduceri de sezon!");
+
                     }
 
                 case 0:

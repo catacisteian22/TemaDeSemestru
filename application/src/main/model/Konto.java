@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public class Konto {
 
 
+    private String idKonto;
     private String username;
     private String password;
     private LocalDateTime joinDatum;
@@ -18,6 +19,13 @@ public class Konto {
         this.typ = typ;
     }
 
+    public String getIdKonto() {
+        return idKonto;
+    }
+
+    public void setIdKonto(String idKonto) {
+        this.idKonto = idKonto;
+    }
     public String getTyp() {
         return typ;
     }

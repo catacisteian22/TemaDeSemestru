@@ -4,7 +4,7 @@ import main.repository.Repository;
 
 //@Entity
 //@Table(name = "buch")
-public class Buch {
+public class Buch implements Identifiable{
 
     private String idBuch;
     private String title;
@@ -97,5 +97,10 @@ public class Buch {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    @Override
+    public String getId() {
+        return idBuch;
     }
 }

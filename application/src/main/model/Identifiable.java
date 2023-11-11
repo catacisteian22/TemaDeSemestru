@@ -1,5 +1,5 @@
 package main.model;
 
-public interface Identifiable<E> {
-    E getId();
+public interface Identifiable {
+    String getId();
 }
