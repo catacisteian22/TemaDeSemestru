@@ -11,6 +11,9 @@ import main.repository.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BuchhandlungApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+
+        String jbdcURL = "jdbc:mysql://localhost:3306/bookstore";
+        String usernameDB = "root";
+        String passwordDB = "Cata22";
+
+        Connection connection = DriverManager.getConnection(jbdcURL, usernameDB, passwordDB);
+
 
         RomanceBuchFactory romanceBuchFactory = new RomanceBuchFactory();
         ActionBuchFactory actionBuchFactory = new ActionBuchFactory();
@@ -235,7 +245,7 @@ public class BuchhandlungApp {
                         }
                         Werbeveranstaltung werbeveranstaltung = new Werbeveranstaltung();
                         Kunde kunde1 = new Kunde(werbeveranstaltung);
-                        werbeveranstaltung.createEvent(LocalDateTime.of(2023, 11, 02, 12, 0, 0), "Reduceri de sezon!");
+//                        werbeveranstaltung.createEvent(LocalDateTime.of(2023, 11, 02, 12, 0, 0), "Reduceri de sezon!");
                     } else {
                         System.out.println("Error, du bist nicht einen Kunden!");
                     }
