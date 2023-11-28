@@ -7,7 +7,6 @@ import main.repository.BestellungRepo;
 import main.repository.BuchRepo;
 import main.repository.KontoRepo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,15 +23,8 @@ public class BestellungController {
     }
 
 
-    public boolean delete(String idBestellung) {
-
-        for (Bestellung b : bestellungRepo.getAll()) {
-            if (b.getIdBestellung()==idBestellung) {
-                bestellungRepo.delete(idBestellung);
-                return true;
-            }
-        }
-        return false;
+    public void deleteBestellung(String id) {
+        bestellungRepo.delete(id);
     }
 
     public void addBestellung(Konto konto, LocalDateTime datum, String idBestellung, float gesamtPreis, String adresse, List<Buch> chosenBooks) throws Exception {
@@ -41,7 +33,7 @@ public class BestellungController {
 
             for (Buch buch : chosenBooks) {
                 if (buchRepo.getById(buch.getIdBuch())) {
-                    Bestellung bestellung = new Bestellung(datum, idBestellung, gesamtPreis, adresse, chosenBooks);
+                    Bestellung bestellung = new Bestellung(idBestellung, datum, gesamtPreis, adresse, chosenBooks);
                     bestellungRepo.add(bestellung);
                 } else {
                     throw new Exception("Error");
@@ -50,29 +42,21 @@ public class BestellungController {
         }
     }
 
-    public boolean update(LocalDateTime datum, String idBestellung, float gesamtpreis, String adresse, List<Buch> listeBucher ) {
-
-        for (Bestellung b : bestellungRepo.getAll()) {
-            if (b.getIdBestellung().equals(idBestellung)) {
-                Bestellung newBestellung = new Bestellung(datum, idBestellung,  gesamtpreis, adresse, listeBucher);
-                bestellungRepo.update(b.getIdBestellung(), newBestellung);
-                return true;
-            }
-        }
-
-        return false;
+    public void updateBestellung(String id, Bestellung newBestellung) {
+        bestellungRepo.update(id, newBestellung);
+        // Optionally, handle the result or perform additional actions after the update
     }
 
-    public Bestellung getByID(String id){
-        for(Bestellung b: bestellungRepo.getAll()){
-            if(b.getIdBestellung().equals(id))
+    public Bestellung getByID(String id) {
+        for (Bestellung b : bestellungRepo.getAll()) {
+            if (b.getIdBestellung().equals(id))
                 return b;
         }
         return null;
     }
 
-    public BestellungRepo getAll(){
-        return bestellungRepo;
+    public List<Bestellung> getAlleBestellungen() {
+        return bestellungRepo.getAll();
     }
 
     public float calculateTotalPrice(List<Buch> chosenBooks) {

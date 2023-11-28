@@ -2,55 +2,81 @@ package main.repository;
 
 import main.model.Autor;
 
+import java.sql.*;
 import java.util.List;
-import java.util.Objects;
 
 public class AutorRepo implements InMemoryRepo<Autor> {
-    private static AutorRepo instance; // The single instance of AutorRepo
-
+    private static AutorRepo instance;
     private List<Autor> autorList;
+    private Connection connection; // Add a connection field
 
-    private AutorRepo(List<Autor> autorList) {
-        this.autorList = autorList;
-    }
+//    private AutorRepo(List<Autor> autorList) {
+//        this.autorList = autorList;
+//        this.connection = establishDatabaseConnection();
+//    }
 
-    // Use a synchronized method to ensure thread safety during initialization
-    public static synchronized AutorRepo getInstance(List<Autor> autorList) {
-        if (instance == null) {
-            instance = new AutorRepo(autorList);
+//    private Connection establishDatabaseConnection() {
+//        try {
+//            Class.forName("jdbc:mysql://localhost:3306/bookstore");
+//            String jdbcUrl = "jdbc:mysql://localhost:3306/bookstore";
+//            String username = "root";
+//            String password = "Cata22";
+//            return DriverManager.getConnection(jdbcUrl, username, password);
+//        } catch (ClassNotFoundException | SQLException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException("Failed to establish a database connection");
+//        }
+//    }
+
+    public void add(Autor autor) {
+        String sql = "INSERT INTO autor (id_autor, name, other_columns) VALUES (?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, autor.getIdAutor());
+            statement.setString(2, autor.getName());
+            // set other parameters
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return instance;
     }
 
-    public void add(Autor b) {
-        autorList.add(b);
-    }
-
-    public boolean getById(String id) {
-        for (Autor autor : autorList) {
-            if (Objects.equals(autor.getIdAutor(), id)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    @Override
     public void delete(String id) {
-        autorList.removeIf(autor -> Objects.equals(autor.getIdAutor(), id));
+
     }
 
-    public Autor update(String id, Autor newAutor) {
-        for (int i = 0; i < autorList.size(); i++) {
-            Autor autor = autorList.get(i);
-            if (Objects.equals(autor.getIdAutor(), id)) {
-                autorList.set(i, newAutor);
-                return newAutor;
-            }
-        }
+    @Override
+    public Autor update(String id, Autor new_entity) {
         return null;
     }
 
+    @Override
     public List<Autor> getAll() {
-        return autorList;
+        return null;
     }
+
+    public boolean getById(String id) {
+        String sql = "SELECT * FROM autor_table WHERE id_autor = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next(); // If there is a matching record, return true
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // ... other methods
+
+    public void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    // ... rest of the class
 }

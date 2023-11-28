@@ -1,6 +1,14 @@
 package main.model;
 
 public class Autor {
+    private String idAutor;
+    private String name;
+    private String vorname;
+
+
+    public Autor(String idAutor, String name, String vorname) {
+    }
+
     public String getIdAutor() {
         return idAutor;
     }
@@ -24,10 +32,4 @@ public class Autor {
     public void setVorname(String vorname) {
         this.vorname = vorname;
     }
-
-    private String idAutor;
-    private String name;
-    private String vorname;
-
-
 }

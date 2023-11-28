@@ -1,6 +1,5 @@
 package main.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,6 +31,7 @@ public class KontoController {
             if (konto.getUsername().equals(username)) {
                 return false;
             }
+            return true;
         }
         kontoRepo.add(newKonto);
         return true;
@@ -46,20 +46,18 @@ public class KontoController {
                 kontoRepo.update(konto.getUsername(), newKonto);
                 return true;
             }
+            return true;
         }
-
         return false;
     }
-
-    public Konto getByUsername(String username) {
+    public Konto getByID (String idKonto){
         for (Konto b : kontoRepo.getAll()) {
-            if (b.getUsername().equals(username))
+            if (b.getIdKonto().equals(idKonto))
                 return b;
         }
         return null;
     }
-
-    public List<Konto> getAll() {
+    public List<Konto> getAll () {
         return kontoRepo.getAll();
     }
 }

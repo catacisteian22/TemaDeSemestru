@@ -2,24 +2,29 @@ package main.model;
 
 import main.discount.DiscountStrategy;
 
+import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bestellung extends Wishlist{
+public class Bestellung extends Wishlist {
 
-    private LocalDateTime datum;
     private String idBestellung;
+    private LocalDateTime datum;
     private float gesamtpreis;
     private String adresse;
     private List<Buch> listeBucher;
 
-    public Bestellung(LocalDateTime datum, String idBestellung, float gesamtpreis, String adresse, List<Buch> listeBucher) {
-        this.datum = datum;
+    public Bestellung(String idBestellung, LocalDateTime datum, float gesamtpreis, String adresse, List<Buch> listeBucher) {
         this.idBestellung = idBestellung;
+        this.datum = datum;
         this.gesamtpreis = gesamtpreis;
         this.adresse = adresse;
         this.listeBucher = listeBucher;
+    }
+
+    public Bestellung(ResultSet resultSet) {
+        super();
     }
 
     @Override
@@ -40,6 +45,7 @@ public class Bestellung extends Wishlist{
     public float calculateGesamtpreis(float gesamtpreis) {
         return discountStrategy.applyDiscount(gesamtpreis);
     }
+
     public void setListeBucher(List<Buch> listeBucher) {
         this.listeBucher = listeBucher;
     }
