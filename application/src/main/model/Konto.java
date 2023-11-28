@@ -12,11 +12,12 @@ public class Konto {
     private LocalDateTime joinDatum;
     private String typ;// kunde oder Angestellte
 
-    public Konto(String username, String password, LocalDateTime joinDatum, String typ) {
+    public Konto(String idKonto,String username, String password, LocalDateTime joinDatum, String typ) {
         this.username = username;
         this.password = password;
         this.joinDatum = joinDatum;
         this.typ = typ;
+        this.idKonto=idKonto;
     }
 
     public String getIdKonto() {
@@ -57,7 +58,4 @@ public class Konto {
     public void setUsername(String username) {
         this.username = username;
     }
-
-
-
 }

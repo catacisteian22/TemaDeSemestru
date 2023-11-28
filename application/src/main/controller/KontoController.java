@@ -13,38 +13,35 @@ public class KontoController {
         this.kontoRepo = kontoRepo;
     }
 
-    public boolean delete(String username) {
+    public void delete(String idKonto) {
 
         for (Konto konto : kontoRepo.getAll()) {
-            if (konto.getUsername().equals(username)) {
-                kontoRepo.delete(username);
-                return true;
+            if (konto.getIdKonto().equals(idKonto)) {
+                kontoRepo.delete(idKonto);
+
             }
+        }
+    }
+
+    public boolean add(String idKonto, String username, String password, LocalDateTime joinDatum, String typ) {
+
+        Konto newKonto = new Konto(idKonto, username, password, joinDatum, typ);
+        for (Konto konto : kontoRepo.getAll()) {
+            if (!konto.getIdKonto().equals(idKonto)) {
+                kontoRepo.add(newKonto);
+            }
+            return true;
         }
         return false;
     }
 
-    public boolean add(String username, String password, LocalDateTime joinDatum, String typ) {
-
-        Konto newKonto = new Konto(username, password, joinDatum, typ);
-        for (Konto konto : kontoRepo.getAll()) {
-            if (konto.getUsername().equals(username)) {
-                return false;
-            }
-            return true;
-        }
-        kontoRepo.add(newKonto);
-        return true;
-    }
-
-    public boolean update(String username, String password, LocalDateTime joinDatum, String typ) {
+    public boolean update(String idKonto, String username, String password, LocalDateTime joinDatum, String typ) {
 
         for (Konto konto : kontoRepo.getAll()) {
-            if (konto.getUsername().equals(username)) {
-                Konto newKonto = new Konto(username, password, joinDatum, typ);
+            if (konto.getIdKonto().equals(idKonto)) {
+                Konto newKonto = new Konto(idKonto, username, password, joinDatum, typ);
 
-                kontoRepo.update(konto.getUsername(), newKonto);
-                return true;
+                kontoRepo.update(konto.getIdKonto(), newKonto);
             }
             return true;
         }
